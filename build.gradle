@@ -8,7 +8,7 @@ plugins {
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 configurations {
 	developmentOnly
@@ -21,18 +21,34 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	SPRING_BOOT_VERSION = "2.2.0.RELEASE"
+	POSTGRESQL_JDBC_DRIVER_VERSION = '42.2.5'
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile "org.springframework.boot:spring-boot-starter-web:$SPRING_BOOT_VERSION"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$SPRING_BOOT_VERSION"
+    compile "org.springframework.boot:spring-boot-starter-jdbc:$SPRING_BOOT_VERSION"
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf:$SPRING_BOOT_VERSION"
+    compile("org.springframework.boot:spring-boot-starter-security:$SPRING_BOOT_VERSION")
+    compile "org.springframework.session:spring-session-jdbc" // no need to give version; io.spring.dependency-management will manage it
+    
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+	testCompile group: 'com.jayway.restassured', name: 'rest-assured', version: '2.9.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation 'org.springframework.security:spring-security-test'
+	
+	compile "org.postgresql:postgresql:$POSTGRESQL_JDBC_DRIVER_VERSION"
 }
 
 test {

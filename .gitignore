@@ -35,6 +35,9 @@ rebel.xml
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+.idea/compiler.xml
+.idea/gradle.xml
 .idea/workspace.xml
 ./idea/*
 /.apt_generated/
+
